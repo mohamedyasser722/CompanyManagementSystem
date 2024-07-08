@@ -1,0 +1,54 @@
+﻿@model EmployeeViewModel
+
+@{
+    ViewData["Title"] = "Employee Details";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<dl class="row">
+
+    <dt class="col-sm-3">Image:</dt>
+    <dd class="col-sm-9">
+        @if (!string.IsNullOrEmpty(Model.ImagePath))
+        {
+            <img src="~/Files/Images/@Model.ImagePath" alt="Employee Image" style="width: 200px; height: 200px; object-fit: cover;" />
+        }
+        else
+        {
+            <img src="~/images/default.png" alt="Default Image" style="width: 200px; height: 200px; object-fit: cover;" />
+        }
+    </dd>
+
+    <dt class="col-sm-3">ID:</dt>
+    <dd class="col-sm-9">@Model.Id</dd>
+
+    <dt class="col-sm-3">Name:</dt>
+    <dd class="col-sm-9">@Model.Name</dd>
+
+    <dt class="col-sm-3">Age:</dt>
+    <dd class="col-sm-9">@Model.Age</dd>
+
+    <dt class="col-sm-3">Address:</dt>
+    <dd class="col-sm-9">@Model.Address</dd>
+
+    <dt class="col-sm-3">Salary:</dt>
+    <dd class="col-sm-9">@Model.Salary</dd>
+
+    <dt class="col-sm-3">Active:</dt>
+    <dd class="col-sm-9">@Model.IsActive</dd>
+
+    <dt class="col-sm-3">Email:</dt>
+    <dd class="col-sm-9">@Model.Email</dd>
+
+    <dt class="col-sm-3">Phone Number:</dt>
+    <dd class="col-sm-9">@Model.PhoneNumber</dd>
+
+    <dt class="col-sm-3">Hire Date:</dt>
+    <dd class="col-sm-9">@Model.HireDate.ToString("yyyy-MM-dd")</dd>
+
+    <dt class="col-sm-3">Department:</dt>
+    <dd class="col-sm-9">@((Model.Department != null ? Model.Department.Name : "N/A"))</dd>
+</dl>
+
+<a asp-action="Index">Back to List</a>

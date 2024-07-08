@@ -1,0 +1,24 @@
+﻿@model Department
+
+@{
+    ViewData["Title"] = "Create Department";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-controller="Department" asp-action="Create" method="post">
+
+    @Html.Partial("_DepartmentCreateEditForm", Model)
+
+    
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Create</button>
+        <a href="@Url.Action("Index", "Department")" class="btn btn-secondary ml-2">Back To List</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

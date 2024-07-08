@@ -1,0 +1,47 @@
+﻿@model EmployeeViewModel
+
+@{
+    ViewData["Title"] = "Edit Employee";
+}
+
+<h1>Edit Employee</h1>
+
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="Id" />
+
+    @Html.Partial("_EmployeeCreateEditForm", Model)
+    
+</form>
+
+<a asp-action="Index">Back to List</a>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha384-ZvpUoO/+P2akZMKM/+J4u6C5avRkOD0o+Q7H0j2B6yB6qKjJck2gicQFh4u6w9th" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $('#year').text(new Date().getFullYear());
+
+            function updateCheckboxStyle() {
+                if ($('#isActiveCheckbox').is(':checked')) {
+                    $('#isActiveCheckbox').css('background-color', 'green');
+                    $('#isActiveCheckbox').css('border-color', 'green');
+                } else {
+                    $('#isActiveCheckbox').css('background-color', '#eee');
+                    $('#isActiveCheckbox').css('border-color', 'red');
+                }
+            }
+
+            // Initial load
+            updateCheckboxStyle();
+
+            // On change
+            $('#isActiveCheckbox').change(function () {
+                updateCheckboxStyle();
+            });
+        });
+    </script>
+}
+

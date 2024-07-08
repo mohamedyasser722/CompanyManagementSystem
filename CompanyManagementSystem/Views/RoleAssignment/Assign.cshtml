@@ -1,0 +1,13 @@
+﻿@model CompanyManagementSystem.PL.ViewModels.UserRoleViewModel
+
+<h2>Assign Role to @Model.UserName</h2>
+<form asp-action="Assign">
+    <div class="form-group">
+        <label asp-for="SelectedRole"></label>
+        <select asp-for="SelectedRole" class="form-control" asp-items="ViewBag.Roles">
+            <option value="">Select a role</option>
+        </select>
+    </div>
+    <input type="hidden" asp-for="UserId" />
+    <button type="submit" class="btn btn-primary">Assign Role</button>
+</form>

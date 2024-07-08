@@ -1,0 +1,101 @@
+html {
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+body {
+    margin-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the body takes full height */
+}
+
+.nav-item-spacing {
+    margin-right: 50px;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 60px; /* Adjust the height as needed */
+    line-height: 60px; /* Center vertically */
+    background-color: #f8f9fa; /* Bootstrap's bg-light */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* Base styles for the checkbox container */
+.form-group {
+    display: flex;
+    align-items: center;
+}
+
+/* Hide the default checkbox appearance */
+.styled-checkbox {
+    display: none;
+}
+
+/* Custom checkbox styles */
+.checkbox-label {
+    position: relative;
+    cursor: pointer;
+    font-size: 18px;
+    user-select: none;
+}
+
+.custom-checkbox {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #eee;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+/* Styles for the checkmark when checked */
+.checkbox-label .custom-checkbox::after {
+    content: '';
+    position: absolute;
+    display: none;
+    left: 7px;
+    top: 3px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+/* Green background and checkmark when checked */
+.styled-checkbox:checked + .custom-checkbox {
+    background-color: green;
+    border-color: green;
+}
+
+    .styled-checkbox:checked + .custom-checkbox::after {
+        display: block;
+    }
+
+/* Red border when unchecked */
+.styled-checkbox:not(:checked) + .custom-checkbox {
+    border-color: red;
+}
+
+/* Add some spacing between the checkbox and the text */
+.checkbox-label {
+    padding-left: 30px;
+}
+.nav-link-logout {
+    color: red !important;
+}
