@@ -93,7 +93,7 @@ namespace CompanyManagementSystem.PL.Controllers
             foreach (var role in userRoles)
             {
                 userViewModel.AvailableRoles[role] = true;
-        }
+            }
 
             var allRoles = await _roleManager.Roles.ToListAsync();
             foreach (var role in allRoles)
@@ -110,8 +110,6 @@ namespace CompanyManagementSystem.PL.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(UserViewModel userViewModel)
         {
-            if (id != userViewModel.Id)
-                return BadRequest();
             var user = await _userManager.FindByIdAsync(userViewModel.Id);
             if (user == null) return NotFound();
 
