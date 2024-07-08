@@ -93,7 +93,7 @@ namespace CompanyManagementSystem.PL.Controllers
             foreach (var role in userRoles)
             {
                 userViewModel.AvailableRoles[role] = true;
-            }
+        }
 
             var allRoles = await _roleManager.Roles.ToListAsync();
             foreach (var role in allRoles)
@@ -110,12 +110,14 @@ namespace CompanyManagementSystem.PL.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(UserViewModel userViewModel)
         {
+            if (id != userViewModel.Id)
+                return BadRequest();
             var user = await _userManager.FindByIdAsync(userViewModel.Id);
             if (user == null) return NotFound();
 
             _mapper.Map(userViewModel, user);
             user.UserName = userViewModel.Email.Split('@')[0];
-
+            
             var currentRoles = await _userManager.GetRolesAsync(user);
             var newRoles = userViewModel.AvailableRoles.Where(r => r.Value).Select(r => r.Key).ToList();
             var rolesToAdd = newRoles.Except(currentRoles);
@@ -130,6 +132,7 @@ namespace CompanyManagementSystem.PL.Controllers
                 }
                 return View(userViewModel);
             }
+            return RedirectToAction("Index");
 
             var removeRoleResult = await _userManager.RemoveFromRolesAsync(user, rolesToRemove);
             if (!removeRoleResult.Succeeded)
@@ -140,7 +143,7 @@ namespace CompanyManagementSystem.PL.Controllers
                 }
                 return View(userViewModel);
             }
-
+            
             var updateResult = await _userManager.UpdateAsync(user);
             if (!updateResult.Succeeded)
             {
@@ -149,7 +152,7 @@ namespace CompanyManagementSystem.PL.Controllers
                     ModelState.AddModelError("", error.Description);
                 }
                 return View(userViewModel);
-            }
+        }
 
             return RedirectToAction("Index");
         }
