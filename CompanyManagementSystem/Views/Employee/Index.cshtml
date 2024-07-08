@@ -1,0 +1,100 @@
+﻿@model IEnumerable<EmployeeViewModel>
+
+@{
+    ViewData["Title"] = "All Employees";
+}
+
+<h2>@ViewData["Title"]</h2>
+<br />
+
+@if (ViewBag.Message != null)
+{
+    <div id="success-alert" class="alert alert-success alert-dismissible fade show" role="alert">
+        @ViewBag.Message
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="d-flex justify-content-end mb-3">
+    <a class="btn btn-primary" asp-controller="Employee" asp-action="Create">Create New Employee</a>
+</div>
+
+<div class="mb-3">
+    <input type="text" id="searchBox" class="form-control" placeholder="Search employees..." />
+    <button id="backendSearchButton" class="btn btn-secondary mt-2">Search</button>
+</div>
+
+@Html.Partial("_EmployeeSearchTableBody", Model)
+
+<!-- Bootstrap Modal for Delete Confirmation -->
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirm Deletion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this employee?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form id="deleteForm" asp-controller="Employee" asp-action="Delete" method="post">
+                    <input type="hidden" id="employeeIdToDelete" name="id" />
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha384-ZvpUoO/+P2akZMKM/+J4u6C5avRkOD0o+Q7H0j2B6yB6qKjJck2gicQFh4u6w9th" crossorigin="anonymous"></script>
+    <script>
+        var employeeIdToDelete;
+
+        function showDeleteConfirmation(employeeId) {
+            employeeIdToDelete = employeeId;
+            $('#deleteConfirmationModal').modal('show');
+        }
+
+        $('#deleteForm').submit(function () {
+            $('#employeeIdToDelete').val(employeeIdToDelete);
+        });
+
+        $(document).ready(function () {
+            // Check if the success alert exists
+            var successAlert = $("#success-alert");
+            if (successAlert.length) {
+                // Fade out after 2 seconds (2000 milliseconds)
+                setTimeout(function () {
+                    successAlert.fadeOut('slow', function () {
+                        $(this).alert('close');
+                    });
+                }, 2000);
+            }
+
+            // Live search
+            $('#searchBox').on('input', function () {
+                var searchString = $(this).val();
+                $.ajax({
+                    url: '@Url.Action("Search", "Employee")',
+                    type: 'GET',
+                    data: { searchString: searchString },
+                    success: function (result) {
+                        $('#employeeTableContainer').html(result);
+                    },
+                    error: function () {
+                        console.log('Error occurred during live search.');
+                    }
+                });
+            });
+
+            // Backend search button
+            $('#backendSearchButton').click(function () {
+                var searchString = $('#searchBox').val();
+                window.location.href = '@Url.Action("Search", "Employee")' + '?searchString=' + searchString;
+            });
+        });
+    </script>
+}

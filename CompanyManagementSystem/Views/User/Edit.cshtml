@@ -1,0 +1,59 @@
+﻿@model UserViewModel
+
+@{
+    ViewData["Title"] = "Edit User";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div asp-validation-summary="All"></div>
+
+<form asp-action="Edit">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label asp-for="Fname" class="control-label"></label>
+        <input asp-for="Fname" class="form-control" />
+        <span asp-validation-for="Fname" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Lname" class="control-label"></label>
+        <input asp-for="Lname" class="form-control" />
+        <span asp-validation-for="Lname" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Email" class="control-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PhoneNumber" class="control-label"></label>
+        <input asp-for="PhoneNumber" class="form-control" />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Roles</label>
+        @foreach (var role in Model.Roles)
+        {
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" asp-for="@role" />
+                <label class="form-check-label">@role</label>
+            </div>
+        }
+    </div>
+    
+    <br/>
+    <br/>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

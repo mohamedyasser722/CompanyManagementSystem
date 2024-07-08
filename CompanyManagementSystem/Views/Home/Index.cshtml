@@ -1,0 +1,88 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - Company Management System</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .welcome-section {
+            padding: 50px 0;
+            background-color: #343a40;
+            color: white;
+        }
+
+            .welcome-section h1 {
+                font-size: 3rem;
+                margin-bottom: 20px;
+            }
+
+            .welcome-section p {
+                font-size: 1.25rem;
+            }
+
+        .info-section {
+            padding: 50px 20px;
+        }
+
+            .info-section h2 {
+                font-size: 2.5rem;
+                margin-bottom: 20px;
+            }
+
+            .info-section p {
+                font-size: 1.2rem;
+                line-height: 1.6;
+            }
+
+            .info-section ul {
+                font-size: 1.2rem;
+                line-height: 1.6;
+                list-style: none;
+                padding-left: 0;
+            }
+
+                .info-section ul li {
+                    margin-bottom: 10px;
+                }
+    </style>
+</head>
+<body>
+    <div class="welcome-section text-center">
+        <h1 class="display-4">Welcome to Company Management System</h1>
+        <p>Streamline your business operations with our comprehensive tools.</p>
+        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core" style="color: #ffd700; text-decoration: underline;">building Web apps with ASP.NET Core</a>.</p>
+    </div>
+    <div class="info-section container">
+        <h2>About This Project</h2>
+        <p>This is a demo project using the following technologies and design patterns:</p>
+        <ul>
+            <li>MVC .NET 6</li>
+            <li>AutoMapper 13</li>
+            <li>Specification Design Pattern</li>
+            <li>Identity Package for Security</li>
+            <li>SQL Server</li>
+            <li>Entity Framework (EF)</li>
+            <li>LINQ</li>
+            <li>Fluent API</li>
+            <li>3-Tier Architecture</li>
+            <li>Dependency Injection (DI)</li>
+            <li>Repository Pattern</li>
+            <li>Unit of Work</li>
+        </ul>
+        <p>Explore the features:</p>
+        <ul>
+            <li>Check the <strong>Departments</strong> and <strong>Employees</strong> sections in the navigation bar to see CRUD operations, live searching, image (uploading, editing,and deleting), Register, Login, LogOut, ForgetPassword, ResetPassword.</li>
+        </ul>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+</body>
+</html>

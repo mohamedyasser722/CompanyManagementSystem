@@ -1,0 +1,83 @@
+﻿@model IEnumerable<UserViewModel>
+
+@{
+    ViewData["Title"] = "User Management";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (Model.Count() > 0)
+{
+    <div class="mb-3">
+        <div class="input-group">
+            <input type="text" id="searchInput" class="form-control" placeholder="Search by email" />
+            <button id="staticSearchBtn" class="btn btn-primary" style="margin-left: 10px;">Search</button>
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Roles</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="userTable">
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.Fname</td>
+                    <td>@user.Lname</td>
+                    <td class="userEmail">@user.Email</td>
+                    <td>@user.PhoneNumber</td>
+                    <td>@string.Join(", ", user.Roles)</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@user.Id" class="btn btn-info btn-sm">Details</a>
+                        <a asp-action="Edit" asp-route-id="@user.Id" class="btn btn-warning btn-sm">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@user.Id" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-info">No users found</div>
+}
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Live search functionality
+            $('#searchInput').on('input', function () {
+                var searchValue = $(this).val().toLowerCase();
+                $('#userTable tr').filter(function () {
+                    $(this).toggle($(this).find('.userEmail').text().toLowerCase().indexOf(searchValue) > -1)
+                });
+            });
+
+            // Backend static search button click event
+            $('#staticSearchBtn').click(function () {
+                var searchValue = $('#searchInput').val().toLowerCase();
+                // Perform backend static search request
+                $.ajax({
+                    url: '@Url.Action("StaticSearch", "User")',
+                    type: 'GET',
+                    data: { searchValue: searchValue },
+                    success: function (data) {
+                        $('#userTable').html(data); // Update table with search results
+                    },
+                    error: function (error) {
+                        console.error('Error performing static search:', error);
+                    }
+                });
+            });
+        });
+    </script>
+}
